@@ -1,0 +1,143 @@
+.searchForm {
+  height: 576px;
+  width: 100%;
+  box-sizing: border-box;
+  background-image: url(./../images/georgia-de-lotz--UsJoNxLaNo-unsplash.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchForm__title {
+  max-width: 608px;
+  font-family: "Roboto Slab", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 60px;
+  line-height: 64px;
+  color: #fff;
+}
+
+.searchForm__description {
+  font-family: "Roboto", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  color: #fff;
+  width: 608px;
+}
+
+.searchForm__form {
+  border: 0px;
+  margin-top: 120px;
+}
+
+.searchForm__fieldset {
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  border: 0px;
+  padding: 0;
+  position: relative;
+}
+
+.searchForm__input {
+  border: 1px solid rgba(209, 210, 214, 1);
+  font-family: "Roboto", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  width: 608px;
+  height: 64px;
+  border-radius: 50px;
+  padding: 0 0 0 15px;
+  color: rgba(182, 188, 191, 1);
+}
+
+.searchForm__submit {
+  border-radius: 50px;
+  border: 0;
+  background-color: rgba(47, 113, 229, 1);
+  color: #fff;
+  font-family: "Roboto", Arial, sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  width: 168px;
+  height: 66px;
+  position: absolute;
+  top: 0;
+  left: 457px;
+  padding: 0;
+  box-shadow: 0px 5px 15px 0px rgba(14, 26, 57, 0.2);
+}
+
+.searchForm__submit:hover {
+  background-color: rgba(52, 126, 255, 1);
+}
+
+.searchForm__submit:active {
+  background-color: rgba(42, 101, 204, 1);
+}
+
+@media screen and (min-width: 730px) and (max-width: 900px) {
+  .searchForm {
+  }
+  .searchForm__title {
+    font-size: 36px;
+    line-height: 40px;
+  }
+  .searchForm__description {
+    font-size: 18px;
+    line-height: 24px;
+    width: 452px;
+  }
+  .searchForm__input {
+    width: 452px;
+    height: 56px;
+  }
+  .searchForm__submit {
+    width: 160px;
+    height: 58px;
+    left: 309px;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 729px) {
+  .searchForm__title {
+    width: 285px;
+    font-size: 36px;
+    line-height: 40px;
+  }
+  .searchForm__description {
+    font-size: 18px;
+    line-height: 24px;
+    width: 288px;
+  }
+  .searchForm__form {
+    margin-top: 100px;
+  }
+  .searchForm__fieldset {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+    row-gap: 20px;
+  }
+  .searchForm__input {
+    width: 288px;
+    padding: 0;
+  }
+  .searchForm__submit {
+    width: 288px;
+    position: unset;
+    left: 0;
+  }
+}

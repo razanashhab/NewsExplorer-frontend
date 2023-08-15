@@ -1,0 +1,39 @@
+.InfoTooltip {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 30px;
+  padding: 50px 0;
+}
+
+.InfoTooltip_hidden {
+  display: none;
+}
+
+.InfoTooltip__image {
+  width: 82.5;
+  height: 82.5;
+}
+
+.InfoTooltip__title {
+  padding: 0;
+  margin: 0;
+  font-family: "Roboto", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 30px;
+  color: #1a1b22;
+}
+
+.InfoTooltip__paragraph {
+  padding: 0;
+  margin: 0;
+  font-family: "Roboto", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  color: #b6bcbf;
+  width: 250px;
+  text-align: center;
+}
