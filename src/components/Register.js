@@ -26,6 +26,7 @@ function Register(props) {
 
   function handleRegister(e) {
     e.preventDefault();
+    props.handleRegister({ email, username, password });
   }
 
   function redirectToSignin() {

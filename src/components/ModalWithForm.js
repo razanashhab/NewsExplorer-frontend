@@ -31,7 +31,6 @@ function ModalWithForm({
 
   React.useEffect(() => {
     const onMouseDown = (e) => {
-      debugger;
       if (e.target === e.currentTarget) {
         onClose();
       }

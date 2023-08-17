@@ -85,6 +85,23 @@
   line-height: 16.94px;
 }
 
+.modal__paragraph {
+  font-family: "Roboto", Arial, sans-serif;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 28.13px;
+  color: #000000;
+}
+
+.modal__message-wrapper {
+  padding: 20px 20px;
+}
+
+.modal__link_enlarge {
+  font-size: 18px;
+  line-height: 21.78px;
+}
+
 @media screen and (min-width: 320px) and (max-width: 627px) {
   .modal {
     padding-top: 123px;

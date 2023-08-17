@@ -6,7 +6,7 @@ export class Api {
   }
 
   getArticles(query) {
-    return this._request(`${this._baseUrl}/everything?q=${query}`, {
+    return this._request(`${this._baseUrl}/everything?q='${query}'`, {
       headers: this._headers,
     });
   }

@@ -20,7 +20,7 @@ function Login(props) {
 
   function handleLogin(e) {
     e.preventDefault();
-    props.handleLogin();
+    props.handleLogin({ email, password });
   }
 
   function redirectToSignup() {

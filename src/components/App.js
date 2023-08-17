@@ -5,10 +5,12 @@ import Footer from "./Footer";
 import Login from "./Login";
 import Register from "./Register";
 import SavedNews from "./SavedNews";
+import PopupMessage from "./PopupMessage";
 import { Route, Switch, withRouter, Redirect } from "react-router-dom";
 import { ThemeContext } from "../contexts/ThemeContext";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import api from "./../utils/Api";
+import { userList, savedNews } from "./../utils/constant";
 
 function App(props) {
   const [theme, setTheme] = React.useState("light");
@@ -16,6 +18,9 @@ function App(props) {
   const [isLoginPopupOpen, setLoginPopupOpen] = React.useState(false);
   const [isRegisterPopupOpen, setRegisterPopupOpen] = React.useState(false);
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [isPopupMessageOpen, setIsPopupMessageOpen] = React.useState(false);
+  const [popupMessage, setIsPopupMessage] = React.useState("");
+  const [savedNewsList, setSavedNewsList] = React.useState(savedNews);
 
   function changeTheme(newTheme) {
     setTheme(newTheme);
@@ -24,6 +29,7 @@ function App(props) {
   function closeAllPopups() {
     setLoginPopupOpen(false);
     setRegisterPopupOpen(false);
+    setIsPopupMessageOpen(false);
   }
 
   function handleLoginClick() {
@@ -34,14 +40,23 @@ function App(props) {
     setRegisterPopupOpen(true);
   }
 
-  function handleLogin() {
-    setCurrentUser({
-      name: "Razan",
-      email: "razan.ashhab@gmail.com",
-    });
-    setIsLoggedIn(true);
-    closeAllPopups();
-    props.history.push("/");
+  function handleLogin({ email, password }) {
+    const user = userList.find(
+      (element) => element.email === email && element.password === password
+    );
+    if (user) {
+      setCurrentUser({
+        name: user.name,
+        email: user.email,
+      });
+      setIsLoggedIn(true);
+      closeAllPopups();
+      props.history.push("/");
+    } else {
+      closeAllPopups();
+      setIsPopupMessageOpen(true);
+      setIsPopupMessage("Invalid Login");
+    }
   }
 
   function handleLogout() {
@@ -50,7 +65,39 @@ function App(props) {
     props.history.push("/");
   }
 
-  function handleRegister() {}
+  function handleRegister({ email, username, password }) {
+    const user = userList.find((element) => element.email === email);
+    if (user) {
+      setIsPopupMessageOpen(true);
+      setIsPopupMessage("Invalid Registration");
+    } else {
+      userList.push({ email: email, name: username, password: password });
+      closeAllPopups();
+      setIsPopupMessageOpen(true);
+      setIsPopupMessage("Registration successfully completed!");
+    }
+  }
+
+  function handleSaveArticle({
+    image,
+    publishedAt,
+    title,
+    description,
+    source,
+  }) {
+    savedNewsList.push({
+      image: image,
+      publishedAt: publishedAt,
+      title: title,
+      description: description,
+      source: source,
+    });
+  }
+
+  function handleDeleteSavedArticle(title) {
+    const index = savedNewsList.findIndex((element) => element.title === title);
+    setSavedNewsList(savedNewsList.toSpliced(index, 1));
+  }
 
   React.useEffect(() => {
     const closeByEscape = (e) => {
@@ -79,13 +126,19 @@ function App(props) {
                 <SavedNews
                   isLoggedIn={isLoggedIn}
                   onChangeTheme={changeTheme}
+                  savedNewsList={savedNewsList}
+                  handleDeleteSavedArticle={handleDeleteSavedArticle}
                 />
               ) : (
                 <Redirect to="/" />
               )}{" "}
             </Route>{" "}
             <Route path="/">
-              <Main onChangeTheme={changeTheme} api={api} />{" "}
+              <Main
+                onChangeTheme={changeTheme}
+                api={api}
+                handleSaveArticle={handleSaveArticle}
+              />{" "}
             </Route>{" "}
           </Switch>{" "}
           <Footer />
@@ -102,6 +155,13 @@ function App(props) {
             handleRegister={handleRegister}
             onLoginClick={handleLoginClick}
           />{" "}
+          <PopupMessage
+            name="messagePopup"
+            isOpen={isPopupMessageOpen}
+            onClose={closeAllPopups}
+            message={popupMessage}
+            onLoginClick={handleLoginClick}
+          />
         </CurrentUserContext.Provider>{" "}
       </ThemeContext.Provider>{" "}
     </div>

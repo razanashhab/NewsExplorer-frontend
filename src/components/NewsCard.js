@@ -19,37 +19,20 @@ function NewsCard(props) {
     localStorage.setItem("savedArticles", JSON.stringify(savedArticles));
   }, [savedArticles]);
 
-  function saveArticle(evt) {
-    // localStorage.removeItem("savedArticles");
-    if (currentUser.email) {
-      if (localStorage.getItem("savedArticles")) {
-        let card = {
-          image: props.image,
-          publishedAt: props.publishedAt,
-          title: props.title,
-          description: props.description,
-          source: props.source,
-        };
-        savedArticles.push(card);
-      } else {
-        let card = {
-          image: props.image,
-          publishedAt: props.publishedAt,
-          title: props.title,
-          description: props.description,
-          source: props.source,
-        };
-        savedArticles.push(card);
-      }
-      setSavedIconSavedStatus(true);
-    }
+  function saveArticle() {
+    let card = {
+      image: props.image,
+      publishedAt: props.publishedAt,
+      title: props.title,
+      description: props.description,
+      source: props.source,
+    };
+    props.handleSaveArticle(card);
+    setSavedIconSavedStatus(true);
   }
 
-  function deleteSavedArticle(evt) {
-    const index = savedArticles.findIndex((itm) => {
-      return itm.title === props.title;
-    });
-    setSavedArticles(savedArticles.splice(index, 1));
+  function deleteSavedArticle() {
+    props.handleDeleteSavedArticle(props.title);
   }
 
   function handleShowSaveTooltip() {

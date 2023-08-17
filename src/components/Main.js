@@ -17,8 +17,6 @@ function Main(props) {
   const [articles, setArticles] = React.useState([]);
 
   React.useEffect(() => {
-    debugger;
-    const xx = showCardList;
     handleSearchedNewsDisplay();
   }, []);
 
@@ -38,7 +36,6 @@ function Main(props) {
       .getArticles(query)
       .then((data) => {
         if (data && data.articles.length > 0) {
-          debugger;
           setArticles(data.articles);
           localStorage.setItem("searchedNews", JSON.stringify(data.articles));
           setShowCardList(true);
@@ -64,7 +61,11 @@ function Main(props) {
       <SearchForm getArticlesList={getArticlesList} />{" "}
       {showPreloader && <Preloader showPreloader={showPreloader} />}{" "}
       {showCardList && (
-        <NewsCardList articles={articles} showCardList={showCardList} />
+        <NewsCardList
+          articles={articles}
+          showCardList={showCardList}
+          handleSaveArticle={props.handleSaveArticle}
+        />
       )}{" "}
       {showinfoTooltip && <InfoTooltip showinfoTooltip={showinfoTooltip} />}{" "}
       <About />
