@@ -2,9 +2,7 @@ import React from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function NewsCard(props) {
-  const [savedArticles, setSavedArticles] = React.useState(
-    JSON.parse(localStorage.getItem("savedArticles"))
-  );
+  const savedArticles = JSON.parse(localStorage.getItem("savedArticles"));
   const [showSavedTooltip, setShowSavedTooltip] = React.useState(false);
   const [showDeleteTooltip, setShowDeleteTooltip] = React.useState(false);
   const currentUser = React.useContext(CurrentUserContext);
@@ -60,7 +58,7 @@ function NewsCard(props) {
   }
 
   return (
-    <div className="element__card card">
+    <div className="card">
       <button
         type="button"
         aria-label="save button"
@@ -113,11 +111,14 @@ function NewsCard(props) {
       >
         Remove from saved
       </p>
-
       <p className="card__tag card__tag_hidden">Nature</p>
-      <img className="card__image" src={props.image} alt={`image of lago`} />
+      <img
+        className="card__image"
+        src={props.image}
+        alt={`img of nwes cover`}
+      />
       <div className="card__info">
-        <p className="card__subTitle">
+        <p className="card__subtitle">
           {" "}
           {new Date(props.publishedAt).toLocaleString("default", {
             month: "long",

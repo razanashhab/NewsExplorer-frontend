@@ -9,14 +9,14 @@ function SavedNews(props) {
   });
 
   return (
-    <section className="savedNews">
+    <section className="savednews">
       <SavedNewsHeader savedNewsCount={props.savedNewsList.length} />{" "}
       <div
-        className={`cardList ${
-          props.savedNewsList.length <= 0 ? "cardList_hidden" : ""
+        className={`cardlist ${
+          props.savedNewsList.length <= 0 ? "cardlist_hidden" : ""
         }`}
       >
-        <div className="cardList__container cardList__container_position">
+        <div className="cardlist__container">
           {" "}
           {props.savedNewsList.length > 0 &&
             props.savedNewsList.map((news, i) => (

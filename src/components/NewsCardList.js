@@ -18,35 +18,32 @@ function NewsCardList(props) {
 
   return (
     <section
-      className={`cardList ${!props.showCardList ? "cardList_hidden" : ""}`}
+      className={`cardlist ${!props.showCardList ? "cardlist_hidden" : ""}`}
     >
-      {" "}
-      <div className="cardList__wrapper">
-        <h2 className="cardList__title"> Search Result </h2>{" "}
-        <div className="cardList__container">
-          {" "}
-          {props.articles.slice(0, count) &&
-            props.articles
-              .slice(0, count)
-              .map((article, i) => (
-                <NewsCard
-                  key={i}
-                  publishedAt={article.publishedAt}
-                  title={article.title}
-                  description={article.description}
-                  source={article.source.name}
-                  image={article.urlToImage}
-                  isSavedNews={false}
-                  handleSaveArticle={props.handleSaveArticle}
-                />
-              ))}{" "}
-        </div>{" "}
+      <h2 className="cardlist__title"> Search Result </h2>{" "}
+      <div className="cardlist__container">
+        {" "}
+        {props.articles.slice(0, count) &&
+          props.articles
+            .slice(0, count)
+            .map((article, i) => (
+              <NewsCard
+                key={i}
+                publishedAt={article.publishedAt}
+                title={article.title}
+                description={article.description}
+                source={article.source.name}
+                image={article.urlToImage}
+                isSavedNews={false}
+                handleSaveArticle={props.handleSaveArticle}
+              />
+            ))}{" "}
       </div>{" "}
       {showMoreVisibility && (
-        <button className="cardList__button" onClick={increment}>
-          Show more
+        <button className="cardlist__button" onClick={increment}>
+          Show more{" "}
         </button>
-      )}
+      )}{" "}
     </section>
   );
 }

@@ -38,6 +38,7 @@ function Login(props) {
       linkText="Sign up"
       onSubmit={handleLogin}
       onRedirect={redirectToSignup}
+      type="login"
     >
       <fieldset className="form__fieldset">
         <label className="form__label" htmlFor="email">

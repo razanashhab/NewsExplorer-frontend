@@ -4,3 +4,11 @@
   padding: 0px;
   position: relative;
 }
+
+button {
+  cursor: pointer;
+}
+
+a {
+  cursor: pointer;
+}

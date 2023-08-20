@@ -56,29 +56,25 @@ function Navigation(props) {
         onClick={handleCloseMenu}
       />{" "}
       <div className="nav__wrapper">
-        <ul className="nav__items  nav__items_position">
+        <ul className="nav__items  nav__items_align_right">
           <li
-            className={`nav__item nav__item_position ${
+            className={`nav__item nav__item_align_left nav__item_theme_${theme} ${
               isHomePage ? `nav__item_active-${theme}` : ""
             }`}
           >
-            <Link
-              to="/"
-              className={`nav__link nav_theme_${theme}`}
-              onClick={onHomeClick}
-            >
+            <Link to="/" className={`nav__link`} onClick={onHomeClick}>
               {" "}
               Home{" "}
             </Link>{" "}
           </li>{" "}
           <li
-            className={`nav__item nav__item_position ${
+            className={`nav__item nav__item_align_left nav__item_theme_${theme} ${
               isLoggedIn || "nav__hide"
             } ${isSavedNewsPage ? `nav__item_active-${theme}` : ""}`}
           >
             <Link
               to="/saved-news"
-              className={`nav__link nav_theme_${theme}`}
+              className={`nav__link`}
               onClick={onSaveNewsClick}
             >
               {" "}
@@ -90,7 +86,7 @@ function Navigation(props) {
           <li className={`nav__item ${!isLoggedIn || "nav__hide"}`}>
             <button
               type="button"
-              className={`nav__button nav__button_theme_${theme}  nav_theme_${theme} `}
+              className={`nav__button nav__button_theme_${theme}  nav__link_theme_${theme} `}
               onClick={handleLoginClick}
             >
               Sign in
@@ -99,7 +95,7 @@ function Navigation(props) {
           <li className={`nav__item ${isLoggedIn || "nav__hide"}`}>
             <button
               type="button"
-              className={`nav__button nav__button_theme_${theme}   nav_theme_${theme}`}
+              className={`nav__button nav__button_theme_${theme}   nav__link_theme_${theme}`}
               onClick={handleLogoutClick}
             >
               <div className="nav__button-container">
@@ -112,6 +108,7 @@ function Navigation(props) {
                       ? logout_light
                       : logout_dark
                   }
+                  alt="logout icon"
                 />
               </div>
             </button>{" "}

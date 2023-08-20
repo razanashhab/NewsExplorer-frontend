@@ -42,7 +42,10 @@ function Header(props) {
           }`}
           onClick={handleShowMenu}
         >
-          <img src={theme == "light" ? menu_light : menu_dark} />{" "}
+          <img
+            src={theme === "light" ? menu_light : menu_dark}
+            alt="menu icon"
+          />{" "}
         </button>{" "}
         <Navigation
           isLoggedIn={props.isLoggedIn}

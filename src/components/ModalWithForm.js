@@ -11,6 +11,7 @@ function ModalWithForm({
   onSubmit,
   children,
   onRedirect,
+  type,
 }) {
   const enableValidation = (config) => {
     const formElement = document.querySelector(config.formSelector);
@@ -27,7 +28,7 @@ function ModalWithForm({
       inputErrorClass: "form__input_type_error",
       errorClass: "form__input-error_active",
     });
-  }, [isOpen, onClose]);
+  }, [isOpen, onClose, name]);
 
   React.useEffect(() => {
     const onMouseDown = (e) => {
@@ -40,13 +41,13 @@ function ModalWithForm({
       document
         .querySelector(".modal")
         .removeEventListener("mousedown", onMouseDown);
-  }, []);
+  }, [onClose]);
 
   return (
     <div
       className={`modal modal_type_${name} ${isOpen ? "modal_opened" : ""} `}
     >
-      <div className="modal__container">
+      <div className={`modal__container modal__container_type_${type}`}>
         <button
           type="button"
           className="modal__close-button"

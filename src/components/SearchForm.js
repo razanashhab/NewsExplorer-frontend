@@ -13,22 +13,22 @@ function SearchForm(props) {
   }
 
   return (
-    <section className="searchForm">
-      <h1 className="searchForm__title"> What 's going on in the World?</h1>{" "}
-      <p className="searchForm__description">
+    <section className="searchform">
+      <h1 className="searchform__title"> What 's going on in the World?</h1>{" "}
+      <p className="searchform__description">
         Find the latest news on any topic and save them in your personal
         account.{" "}
       </p>{" "}
-      <form className="searchForm__form" onSubmit={handleSubmit}>
-        <fieldset className="searchForm__fieldset">
+      <form className="searchform__form" onSubmit={handleSubmit}>
+        <fieldset className="searchform__fieldset">
           <input
             type="text"
-            className="searchForm__input"
+            className="searchform__input"
             placeholder="Enter topic"
             onChange={handleSearchChange}
             value={search}
           />{" "}
-          <button type="submit" className="searchForm__submit">
+          <button type="submit" className="searchform__submit">
             Search{" "}
           </button>{" "}
         </fieldset>{" "}

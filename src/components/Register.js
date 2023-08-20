@@ -44,6 +44,7 @@ function Register(props) {
       linkText="Sign in"
       onSubmit={handleRegister}
       onRedirect={redirectToSignin}
+      type="register"
     >
       <fieldset className="form__fieldset">
         <label className="form__label" htmlFor="email">
