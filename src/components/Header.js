@@ -20,6 +20,11 @@ function Header(props) {
     setIsMenuShown(false);
   }
 
+  function handleCloseMenu() {
+    setIsMenuButtonShown(true);
+    handleHideMenu();
+  }
+
   return (
     <header
       className={`header header_theme_${theme} ${
@@ -47,6 +52,13 @@ function Header(props) {
             alt="menu icon"
           />{" "}
         </button>{" "}
+        <button
+          type="button"
+          className={`header__close-button ${
+            !isMenuButtonShown ? "header__close-button_visibility" : ""
+          }`}
+          onClick={handleCloseMenu}
+        />{" "}
         <Navigation
           isLoggedIn={props.isLoggedIn}
           onLoginClick={props.onLoginClick}

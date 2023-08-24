@@ -6,7 +6,7 @@
   font-weight: 700;
   font-size: 20px;
   line-height: 24px;
-  padding: 30px 0px;
+  padding: 30px 0px 26px 0;
 }
 
 .logo_theme_dark {
@@ -19,9 +19,9 @@
 
 @media screen and (min-width: 730px) and (max-width: 900px) {
   .logo {
+    padding: 22.73px 0px 18.47px 0;
     padding-left: 0;
     padding-right: 10px;
-    z-index: 1;
   }
 }
 

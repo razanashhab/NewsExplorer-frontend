@@ -9,7 +9,7 @@ import InfoTooltip from "./InfoTooltip";
 function Main(props) {
   React.useEffect(() => {
     props.onChangeTheme("light");
-  }, []);
+  });
 
   const [showCardList, setShowCardList] = React.useState(false);
   const [showPreloader, setShowPreloader] = React.useState(false);

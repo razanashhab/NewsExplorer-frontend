@@ -28,7 +28,7 @@ function ModalWithForm({
       inputErrorClass: "form__input_type_error",
       errorClass: "form__input-error_active",
     });
-  }, [isOpen, onClose, name]);
+  }, [isOpen, name]);
 
   React.useEffect(() => {
     const onMouseDown = (e) => {
@@ -42,7 +42,6 @@ function ModalWithForm({
         .querySelector(".modal")
         .removeEventListener("mousedown", onMouseDown);
   }, [onClose]);
-
   return (
     <div
       className={`modal modal_type_${name} ${isOpen ? "modal_opened" : ""} `}

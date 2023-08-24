@@ -6,7 +6,7 @@ function Footer() {
     <footer className="footer">
       <p className="footer__copyright">
         {" "}
-        © {`${new Date().getFullYear()}Supersite, Powered by News API`}{" "}
+        {`© 2021 Supersite, Powered by News API`}{" "}
       </p>{" "}
       <ul className="footer__list">
         <li className="footer__list-item footer__list-item_position_home">

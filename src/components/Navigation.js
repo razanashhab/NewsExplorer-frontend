@@ -11,9 +11,6 @@ function Navigation(props) {
   const [isHomePage, setIsHomePage] = React.useState(true);
   const [isSavedNewsPage, setIsSavedNewsPage] = React.useState(false);
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-  const [isMenuCloseShown, setIsMenuCloseShown] = React.useState(
-    props.isMenuShown
-  );
 
   React.useEffect(() => {
     currentUser.email != null ? setIsLoggedIn(true) : setIsLoggedIn(false);
@@ -31,11 +28,6 @@ function Navigation(props) {
     setIsHomePage(false);
   }
 
-  function handleCloseMenu() {
-    setIsMenuCloseShown(false);
-    props.handleHideMenu();
-  }
-
   function handleLoginClick() {
     props.handleHideMenu();
     props.onLoginClick();
@@ -48,13 +40,6 @@ function Navigation(props) {
 
   return (
     <nav className={`nav ${props.isMenuShown ? "nav_opened" : ""}`}>
-      <button
-        type="button"
-        className={`nav__close-button ${
-          !isMenuCloseShown ? "nav__close-button_hide" : ""
-        }`}
-        onClick={handleCloseMenu}
-      />{" "}
       <div className="nav__wrapper">
         <ul className="nav__items  nav__items_align_right">
           <li

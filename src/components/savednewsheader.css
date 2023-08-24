@@ -9,6 +9,7 @@
   justify-content: center;
   align-items: flex-start;
   padding-left: 104px;
+  padding-right: 104px;
 }
 
 .savednewsheader__subtitle {
@@ -44,9 +45,10 @@
     height: 270px;
     padding-top: 90px;
     padding-left: 40px;
+    padding-right: 40px;
   }
   .savednewsheader__subtitle {
-    font-size: 18px;
+    font-size: 14px;
     margin-bottom: 16px;
   }
   .savednewsheader__title {
@@ -66,6 +68,7 @@
     justify-content: flex-start;
     padding-top: 64px;
     padding-left: 16px;
+    padding-right: 16px;
     padding-bottom: 0;
   }
   .savednewsheader__subtitle {
