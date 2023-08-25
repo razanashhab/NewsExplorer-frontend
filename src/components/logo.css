@@ -1,0 +1,34 @@
+.logo {
+  width: 200px;
+  height: 24px;
+  margin: 0;
+  font-family: "Roboto Slab", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  padding: 30px 0px 26px 0;
+}
+
+.logo_theme_dark {
+  color: #000;
+}
+
+.logo_theme_light {
+  color: #fff;
+}
+
+@media screen and (min-width: 730px) and (max-width: 900px) {
+  .logo {
+    padding: 22.73px 0px 18.47px 0;
+    padding-left: 0;
+    padding-right: 10px;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 729px) {
+  .logo {
+    width: 117px;
+    font-size: 16px;
+    padding: 10px 0 10px 10px;
+  }
+}

@@ -1,0 +1,216 @@
+.card {
+  position: relative;
+  background-color: #fff;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.card__button {
+  display: block;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: 0;
+  background-color: #fff;
+  padding: 1px 7px;
+}
+
+.card__button_hidden {
+  display: none;
+}
+
+.card__icon {
+  display: block;
+  width: 25px;
+  height: 25px;
+}
+
+.card__icon-saved_status_new {
+  background-image: url(./../images/bookmark-light.svg);
+  background-size: cover;
+  background-position: center;
+}
+
+.card__icon-saved_status_active {
+  background-image: url(./../images/bookmark-dark.svg);
+  background-size: cover;
+  background-position: center;
+}
+
+.card__icon-saved_status_saved {
+  background-image: url(./../images/bookmark-blue.svg);
+  background-size: cover;
+  background-position: center;
+}
+
+.card__icon-trash {
+  background-image: url(./../images/trash-light.svg);
+  background-size: cover;
+  background-position: center;
+}
+
+.card__icon-trash_active {
+  background-image: url(./../images/trash-dark.svg);
+  background-size: cover;
+  background-position: center;
+}
+
+.card__tooltip {
+  position: absolute;
+  top: 20px;
+  right: 70px;
+  width: 182px;
+  background-color: #fff;
+  margin: 0;
+  font-family: "Roboto", Arial, sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14.06px;
+  text-align: center;
+  border-radius: 8px;
+  padding: 13px 0;
+  box-shadow: 0px 10px 22px 0px rgba(59, 74, 116, 0.1);
+}
+
+.card__tooltip_hidden {
+  display: none;
+}
+
+.card__tag {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 182px;
+  background-color: #fff;
+  margin: 0;
+  font-family: "Roboto", Arial, sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  text-align: center;
+  border-radius: 10px;
+  padding: 13px 0;
+}
+
+.card__tag_hidden {
+  display: none;
+}
+
+.card__image {
+  width: 400px;
+  height: 272px;
+}
+
+.card__image:hover {
+  cursor: pointer;
+}
+
+.card__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 8px 24px 24px 24px;
+}
+
+.card__subtitle {
+  padding: 0;
+  margin: 0 0 12px 0;
+  font-family: "Roboto", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  color: rgba(182, 188, 191, 1);
+}
+
+.card__title {
+  margin: 0 0 16px 0;
+  width: 352px;
+  height: 60px;
+  font-family: "Roboto Slab", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 30px;
+  color: rgba(26, 27, 34, 1);
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.card__paragraph {
+  width: 352px;
+  height: 110px;
+  padding: 0;
+  margin: 0 0 16px 0;
+  font-family: "Roboto", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  color: rgba(26, 27, 34, 1);
+  display: inline-block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.card__span {
+  font-family: "Roboto Slab", Arial, sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  color: rgba(182, 188, 191, 1);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-transform: uppercase;
+}
+
+@media screen and (min-width: 730px) and (max-width: 900px) {
+  .card__image {
+    width: 224px;
+    height: 150px;
+  }
+  .card__info {
+    padding: 16px 16px 16px 15px;
+  }
+  .card__title {
+    width: 192px;
+    height: 72px;
+    font-size: 22px;
+    line-height: 24px;
+    margin: 0 0 10px 0;
+  }
+  .card__paragraph {
+    width: 192px;
+    height: 88px;
+    margin: 0 0 12px 0;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 729px) {
+  .card__image {
+    width: 288px;
+    height: 196px;
+  }
+  .card__info {
+    padding: 16px;
+  }
+  .card__subtitle {
+    width: 256px;
+    margin: 0 0 10px 0;
+  }
+  .card__title {
+    width: 256px;
+    height: 48px;
+    font-size: 22px;
+    line-height: 24px;
+    margin: 0 0 14px 0;
+  }
+  .card__paragraph {
+    width: 256px;
+    max-height: 88px;
+    margin: 0 0 8px 0;
+  }
+}
