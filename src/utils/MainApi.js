@@ -83,7 +83,7 @@ export class MainApi {
 }
 
 const mainApi = new MainApi({
-    baseUrl: "http://localhost:3000",
+    baseUrl: "https://api.newsexp.mooo.com",
     headers: {
         "Content-Type": "application/json",
     },
