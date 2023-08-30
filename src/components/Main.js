@@ -2,7 +2,6 @@ import React from "react";
 import SearchForm from "./SearchForm";
 import About from "./About";
 import NewsCardList from "./NewsCardList";
-import { withRouter } from "react-router-dom";
 import Preloader from "./Preloader";
 import InfoTooltip from "./InfoTooltip";
 
@@ -11,66 +10,36 @@ function Main(props) {
     props.onChangeTheme("light");
   });
 
-  const [showCardList, setShowCardList] = React.useState(false);
-  const [showPreloader, setShowPreloader] = React.useState(false);
-  const [showinfoTooltip, setShowinfoTooltip] = React.useState(false);
-  const [articles, setArticles] = React.useState([]);
-
   React.useEffect(() => {
-    handleSearchedNewsDisplay();
+    props.handleSearchedNewsDisplay();
   }, []);
 
-  function handleSearchedNewsDisplay() {
-    const searchedNews = localStorage.getItem("searchedNews");
-    if (searchedNews && searchedNews.length > 0) {
-      setArticles(JSON.parse(searchedNews));
-      setShowCardList(true);
-    }
-  }
-
   function getArticlesList(query) {
-    setArticles([]);
-    setShowPreloader(true);
-    setShowinfoTooltip(false);
-    props.api
-      .getArticles(query)
-      .then((data) => {
-        if (data && data.articles.length > 0) {
-          setArticles(data.articles);
-          localStorage.setItem("searchedNews", JSON.stringify(data.articles));
-          setShowCardList(true);
-        } else {
-          setShowCardList(false);
-          setShowinfoTooltip(true);
-          localStorage.removeItem("searchedNews");
-        }
-      })
-      .catch((err) => {
-        console.log(`Error: ${err}`);
-        setShowCardList(false);
-        setShowinfoTooltip(true);
-        localStorage.removeItem("searchedNews");
-      })
-      .finally(() => {
-        setShowPreloader(false);
-      });
+    props.searchArticles(query);
   }
 
   return (
     <main className="main">
-      <SearchForm getArticlesList={getArticlesList} />{" "}
-      {showPreloader && <Preloader showPreloader={showPreloader} />}{" "}
-      {showCardList && (
+      <SearchForm
+        getArticlesList={getArticlesList}
+        setKeyword={props.setKeyword}
+      />{" "}
+      {props.showPreloader && <Preloader showPreloader={props.showPreloader} />}{" "}
+      {props.showCardList && (
         <NewsCardList
-          articles={articles}
-          showCardList={showCardList}
+          articles={props.articles}
+          showCardList={props.showCardList}
           handleSaveArticle={props.handleSaveArticle}
+          keyword={props.keyword}
+          onLoginClick={props.onLoginClick}
         />
       )}{" "}
-      {showinfoTooltip && <InfoTooltip showinfoTooltip={showinfoTooltip} />}{" "}
+      {props.showinfoTooltip && (
+        <InfoTooltip showinfoTooltip={props.showinfoTooltip} />
+      )}{" "}
       <About />
     </main>
   );
 }
 
-export default withRouter(Main);
+export default Main;

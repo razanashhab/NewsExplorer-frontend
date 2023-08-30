@@ -18,19 +18,31 @@ function NewsCard(props) {
   }, [savedArticles]);
 
   function saveArticle() {
-    let card = {
-      image: props.image,
-      publishedAt: props.publishedAt,
-      title: props.title,
-      description: props.description,
-      source: props.source,
-    };
-    props.handleSaveArticle(card);
-    setSavedIconSavedStatus(true);
+    if (currentUser.email) {
+      if (savedIconSavedStatus) {
+        props.handleDeleteSavedArticle(props.id);
+        setSavedIconSavedStatus(false);
+      } else {
+        let card = {
+          keyword: props.keyword,
+          title: props.title,
+          text: props.description,
+          date: props.publishedAt,
+          source: props.source,
+          link: props.url,
+          image: props.image,
+        };
+        props.handleSaveArticle(card);
+        setSavedIconSavedStatus(true);
+      }
+    } else {
+      //show signin popup
+      props.onLoginClick();
+    }
   }
 
   function deleteSavedArticle() {
-    props.handleDeleteSavedArticle(props.title);
+    props.handleDeleteSavedArticle(props.id);
   }
 
   function handleShowSaveTooltip() {
@@ -111,7 +123,9 @@ function NewsCard(props) {
       >
         Remove from saved
       </p>
-      <p className="card__tag card__tag_hidden">Nature</p>
+      <p className={`card__tag ${props.isSavedNews ? "" : "card__tag_hidden"}`}>
+        Nature
+      </p>
       <img
         className="card__image"
         src={props.image}
@@ -129,6 +143,7 @@ function NewsCard(props) {
         <h3 className="card__title"> {props.title}</h3>
         <p className="card__paragraph">{props.description}</p>
         <span className="card__span">{props.source} </span>
+        <span className="card__span_hidden">{props.url} </span>
       </div>
     </div>
   );

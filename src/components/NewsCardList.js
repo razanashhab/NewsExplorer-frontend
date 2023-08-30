@@ -28,13 +28,17 @@ function NewsCardList(props) {
             .map((article, i) => (
               <NewsCard
                 key={i}
+                id={article._id}
                 publishedAt={article.publishedAt}
                 title={article.title}
                 description={article.description}
                 source={article.source.name}
                 image={article.urlToImage}
+                url={article.url}
+                keyword={props.keyword}
                 isSavedNews={false}
                 handleSaveArticle={props.handleSaveArticle}
+                onLoginClick={props.onLoginClick}
               />
             ))}{" "}
       </div>{" "}
