@@ -6,7 +6,7 @@ import Login from "./Login";
 import Register from "./Register";
 import SavedNews from "./SavedNews";
 import PopupMessage from "./PopupMessage";
-import { Route, Switch, withRouter } from "react-router-dom";
+import { Route, Switch, withRouter, Redirect } from "react-router-dom";
 import { ThemeContext } from "../contexts/ThemeContext";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import api from "./../utils/Api";
@@ -226,8 +226,8 @@ function App(props) {
                 onChangeTheme={changeTheme}
                 savedNewsList={savedNewsList}
                 handleDeleteSavedArticle={handleDeleteSavedArticle}
-              />
-            </ProtectedRoute>
+              />{" "}
+            </ProtectedRoute>{" "}
             <Route path="/">
               <Main
                 onChangeTheme={changeTheme}
@@ -242,6 +242,7 @@ function App(props) {
                 onLoginClick={handleLoginClick}
               />{" "}
             </Route>{" "}
+            <Route path="*"> {<Redirect to="/" />} </Route>{" "}
           </Switch>{" "}
           <Footer />
           <Login

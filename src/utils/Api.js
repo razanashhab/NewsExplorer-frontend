@@ -6,9 +6,9 @@ export class Api {
   }
 
   getArticles(query) {
-    return this._request(`${this._baseUrl}/everything?q='${query}'`, {
-      headers: this._headers,
-    });
+    return this._request(
+      `${this._baseUrl}?q='${query}'&apiKey=f1911b7605d34b40ad7be2bdd4845d45`
+    );
   }
 
   _request(url, options) {
@@ -24,10 +24,7 @@ export class Api {
 }
 
 const api = new Api({
-  baseUrl: "https://newsapi.org/v2",
-  headers: {
-    "X-Api-Key": "f1911b7605d34b40ad7be2bdd4845d45",
-  },
+  baseUrl: "https://nomoreparties.co/news/v2/everything",
 });
 
 export default api;
