@@ -47,7 +47,7 @@ function Register(props) {
       type="register"
     >
       <fieldset className="form__fieldset">
-        <label className="form__label" htmlFor="email">
+        <label className="form__label" htmlFor="emailRg">
           {" "}
           Email{" "}
         </label>{" "}
@@ -55,7 +55,7 @@ function Register(props) {
           type="email"
           className="form__input"
           id="emailRg"
-          name="email"
+          name="emailRg"
           placeholder="Enter email"
           required
           minLength="1"
@@ -63,8 +63,8 @@ function Register(props) {
           onChange={handleEmailChange}
           value={email}
         />{" "}
-        <span className="email-input-error form__input-error"> </span>{" "}
-        <label className="form__label" htmlFor="password">
+        <span className="emailRg-input-error form__input-error"> </span>{" "}
+        <label className="form__label" htmlFor="passwordRg">
           {" "}
           Password{" "}
         </label>{" "}
@@ -72,13 +72,13 @@ function Register(props) {
           type="password"
           className="form__input"
           id="passwordRg"
-          name="password"
+          name="passwordRg"
           placeholder="Enter password"
           required
           onChange={handlePasswordChange}
           value={password}
         />{" "}
-        <span className="password-input-error form__input-error"> </span>{" "}
+        <span className="passwordRg-input-error form__input-error"> </span>{" "}
         <label className="form__label" htmlFor="username1">
           {" "}
           username{" "}
