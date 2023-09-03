@@ -12,6 +12,7 @@ function NewsCard(props) {
     React.useState(false);
 
   const [savedIconSavedStatus, setSavedIconSavedStatus] = React.useState(false);
+  const [cardId, setCardId] = React.useState(props.id);
 
   React.useMemo(() => {
     localStorage.setItem("savedArticles", JSON.stringify(savedArticles));
@@ -20,7 +21,7 @@ function NewsCard(props) {
   function saveArticle() {
     if (currentUser.email) {
       if (savedIconSavedStatus) {
-        props.handleDeleteSavedArticle(props.id);
+        props.handleDeleteSavedArticle(cardId);
         setSavedIconSavedStatus(false);
       } else {
         let card = {
@@ -31,8 +32,10 @@ function NewsCard(props) {
           source: props.source,
           link: props.url,
           image: props.image,
+          id: "",
         };
-        props.handleSaveArticle(card);
+        props.handleSaveArticle(card, handleCardIdChange);
+        console.log(card.id);
         setSavedIconSavedStatus(true);
       }
     } else {
@@ -42,7 +45,11 @@ function NewsCard(props) {
   }
 
   function deleteSavedArticle() {
-    props.handleDeleteSavedArticle(props.id);
+    props.handleDeleteSavedArticle(cardId, setCardId);
+  }
+
+  function handleCardIdChange(cardId) {
+    setCardId(cardId);
   }
 
   function handleShowSaveTooltip() {
@@ -124,7 +131,7 @@ function NewsCard(props) {
         Remove from saved
       </p>
       <p className={`card__tag ${props.isSavedNews ? "" : "card__tag_hidden"}`}>
-        Nature
+        {props.keyword}
       </p>
       <img
         className="card__image"

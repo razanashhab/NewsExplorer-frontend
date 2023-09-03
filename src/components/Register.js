@@ -54,7 +54,7 @@ function Register(props) {
         <input
           type="email"
           className="form__input"
-          id="email"
+          id="emailRg"
           name="email"
           placeholder="Enter email"
           required
@@ -71,7 +71,7 @@ function Register(props) {
         <input
           type="password"
           className="form__input"
-          id="password"
+          id="passwordRg"
           name="password"
           placeholder="Enter password"
           required

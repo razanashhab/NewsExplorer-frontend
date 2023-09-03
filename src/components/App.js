@@ -94,7 +94,6 @@ function App(props) {
       })
       .catch((err) => {
         closeAllPopups();
-        setIsPopupMessageOpen(true);
         setIsPopupMessage("Invalid Login");
       });
   }
@@ -112,13 +111,14 @@ function App(props) {
       .then((res) => {
         if (res) {
           closeAllPopups();
-          setIsPopupMessageOpen(true);
           setIsPopupMessage("Registration successfully completed!");
         }
       })
       .catch((err) => {
-        setIsPopupMessageOpen(true);
         setIsPopupMessage("Invalid Registration");
+      })
+      .finally(() => {
+        setIsPopupMessageOpen(true);
       });
   }
 
@@ -163,19 +163,20 @@ function App(props) {
       });
   }
 
-  function handleSaveArticle({
-    keyword,
-    title,
-    text,
-    date,
-    source,
-    link,
-    image,
-  }) {
+  function handleSaveArticle(card, handleCardIdChange) {
     mainApi
-      .addArticle(keyword, title, text, date, source, link, image)
+      .addArticle(
+        card.keyword,
+        card.title,
+        card.text,
+        card.date,
+        card.source,
+        card.link,
+        card.image
+      )
       .then((newArticle) => {
         setSavedNewsList([newArticle.data, ...savedNewsList]);
+        handleCardIdChange(newArticle.data._id);
       })
       .catch((err) => {
         console.log(`Error: ${err}`);
@@ -190,6 +191,7 @@ function App(props) {
           state.filter((currentArticle) => currentArticle._id !== id)
         );
       })
+      .then((data) => {})
       .catch((err) => {
         console.log(`Error: ${err}`);
       });
@@ -207,8 +209,8 @@ function App(props) {
 
   return (
     <div className="page">
-      <ThemeContext.Provider value={theme}>
-        <CurrentUserContext.Provider value={currentUser}>
+      <CurrentUserContext.Provider value={currentUser}>
+        <ThemeContext.Provider value={theme}>
           <Header
             onLoginClick={handleLoginClick}
             onSignup={handleRegisterClick}
@@ -217,17 +219,16 @@ function App(props) {
           />{" "}
           <Switch>
             <ProtectedRoute
-              path="/saved-news"
+              component={SavedNews}
               isLoggedIn={isLoggedIn}
+              exact
+              path="/saved-news"
               onLoginClick={handleLoginClick}
-            >
-              <SavedNews
-                isLoggedIn={isLoggedIn}
-                onChangeTheme={changeTheme}
-                savedNewsList={savedNewsList}
-                handleDeleteSavedArticle={handleDeleteSavedArticle}
-              />{" "}
-            </ProtectedRoute>{" "}
+              setLoginPopupOpen={setLoginPopupOpen}
+              onChangeTheme={changeTheme}
+              savedNewsList={savedNewsList}
+              handleDeleteSavedArticle={handleDeleteSavedArticle}
+            />{" "}
             <Route path="/">
               <Main
                 onChangeTheme={changeTheme}
@@ -240,6 +241,7 @@ function App(props) {
                 handleSaveArticle={handleSaveArticle}
                 keyword={keyword}
                 onLoginClick={handleLoginClick}
+                handleDeleteSavedArticle={handleDeleteSavedArticle}
               />{" "}
             </Route>{" "}
             <Route path="*"> {<Redirect to="/" />} </Route>{" "}
@@ -265,8 +267,8 @@ function App(props) {
             message={popupMessage}
             onLoginClick={handleLoginClick}
           />{" "}
-        </CurrentUserContext.Provider>{" "}
-      </ThemeContext.Provider>{" "}
+        </ThemeContext.Provider>{" "}
+      </CurrentUserContext.Provider>{" "}
     </div>
   );
 }

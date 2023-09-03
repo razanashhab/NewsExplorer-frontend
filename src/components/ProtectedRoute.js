@@ -1,13 +1,27 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
-function ProtectedRoute({ children, isLoggedIn, onLoginClick, ...props }) {
-  React.useEffect(() => {
-    !isLoggedIn && onLoginClick();
-  }, []);
+function ProtectedRoute({ component: Component, ...props }) {
+  const [value, setValue] = React.useState(false);
+  React.useMemo(() => {
+    if (value) {
+      props.onLoginClick();
+    }
+  }, [value]);
 
   return (
-    <Route {...props}>{isLoggedIn ? children : <Redirect to={"/"} />}</Route>
+    <Route>
+      {() =>
+        props.isLoggedIn ? (
+          <Component {...props} />
+        ) : (
+          () => {
+            setValue(true);
+            return <Redirect to="/" />;
+          }
+        )
+      }
+    </Route>
   );
 }
 

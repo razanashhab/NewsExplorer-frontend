@@ -22,6 +22,7 @@ function NewsCardList(props) {
     >
       <h2 className="cardlist__title"> Search Result </h2>{" "}
       <div className="cardlist__container">
+        {" "}
         {props.articles.slice(0, count) &&
           props.articles
             .slice(0, count)
@@ -39,6 +40,7 @@ function NewsCardList(props) {
                 isSavedNews={false}
                 handleSaveArticle={props.handleSaveArticle}
                 onLoginClick={props.onLoginClick}
+                handleDeleteSavedArticle={props.handleDeleteSavedArticle}
               />
             ))}{" "}
       </div>{" "}

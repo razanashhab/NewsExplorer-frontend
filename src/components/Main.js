@@ -4,6 +4,7 @@ import About from "./About";
 import NewsCardList from "./NewsCardList";
 import Preloader from "./Preloader";
 import InfoTooltip from "./InfoTooltip";
+import { withRouter } from "react-router-dom";
 
 function Main(props) {
   React.useEffect(() => {
@@ -32,6 +33,7 @@ function Main(props) {
           handleSaveArticle={props.handleSaveArticle}
           keyword={props.keyword}
           onLoginClick={props.onLoginClick}
+          handleDeleteSavedArticle={props.handleDeleteSavedArticle}
         />
       )}{" "}
       {props.showinfoTooltip && (
@@ -42,4 +44,4 @@ function Main(props) {
   );
 }
 
-export default Main;
+export default withRouter(Main);

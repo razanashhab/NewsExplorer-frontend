@@ -6,7 +6,8 @@ import { withRouter } from "react-router-dom";
 function SavedNews(props) {
   React.useEffect(() => {
     props.onChangeTheme("dark");
-  });
+    props.history.push("/saved-news");
+  }, []);
   return (
     <section className="savednews">
       <SavedNewsHeader
@@ -41,4 +42,4 @@ function SavedNews(props) {
   );
 }
 
-export default SavedNews;
+export default withRouter(SavedNews);
