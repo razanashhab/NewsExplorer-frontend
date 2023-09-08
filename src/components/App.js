@@ -6,7 +6,13 @@ import Login from "./Login";
 import Register from "./Register";
 import SavedNews from "./SavedNews";
 import PopupMessage from "./PopupMessage";
-import { Route, Switch, withRouter, Redirect } from "react-router-dom";
+import {
+  Route,
+  Switch,
+  withRouter,
+  Redirect,
+  useHistory,
+} from "react-router-dom";
 import { ThemeContext } from "../contexts/ThemeContext";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import api from "./../utils/Api";
@@ -27,10 +33,14 @@ function App(props) {
   const [showinfoTooltip, setShowinfoTooltip] = React.useState(false);
   const [articles, setArticles] = React.useState([]);
   const [keyword, setKeyword] = React.useState("");
+  let history = useHistory();
 
   React.useEffect(() => {
+    history.listen((location) => {
+      console.log(`You changed the page to: ${location.pathname}`);
+    });
     handleTokenCheck();
-  }, []);
+  }, [history]);
 
   function changeTheme(newTheme) {
     setTheme(newTheme);
@@ -60,7 +70,7 @@ function App(props) {
           if (res) {
             loadUserAndArticlesList();
             setIsLoggedIn(true);
-            props.history.push("/");
+            history.push("/");
           }
         })
         .catch((err) => {
@@ -176,7 +186,23 @@ function App(props) {
       )
       .then((newArticle) => {
         setSavedNewsList([newArticle.data, ...savedNewsList]);
-        handleCardIdChange(newArticle.data._id);
+        setArticles((state) =>
+          state.map((currentCard) => {
+            if (currentCard.title === newArticle.data.title) {
+              return {
+                _id: newArticle.data._id,
+                publishedAt: newArticle.data.date,
+                title: newArticle.data.title,
+                description: newArticle.data.text,
+                source: { name: newArticle.data.source },
+                urlToImage: newArticle.data.image,
+                url: newArticle.data.link,
+                keyword: keyword,
+              };
+            }
+            return currentCard;
+          })
+        );
       })
       .catch((err) => {
         console.log(`Error: ${err}`);
@@ -187,11 +213,17 @@ function App(props) {
     mainApi
       .deleteArticle(id)
       .then((res) => {
-        setSavedNewsList((state) =>
-          state.filter((currentArticle) => currentArticle._id !== id)
-        );
+        return res.data;
       })
-      .then((data) => {})
+      .then((data) => {
+        const newSavedNewsList = savedNewsList.filter(
+          (article) => article._id !== id
+        );
+
+        setSavedNewsList(newSavedNewsList);
+
+        handleSearchedNewsDisplay();
+      })
       .catch((err) => {
         console.log(`Error: ${err}`);
       });
@@ -218,18 +250,7 @@ function App(props) {
             isLoggedIn={isLoggedIn}
           />{" "}
           <Switch>
-            <ProtectedRoute
-              component={SavedNews}
-              isLoggedIn={isLoggedIn}
-              exact
-              path="/saved-news"
-              onLoginClick={handleLoginClick}
-              setLoginPopupOpen={setLoginPopupOpen}
-              onChangeTheme={changeTheme}
-              savedNewsList={savedNewsList}
-              handleDeleteSavedArticle={handleDeleteSavedArticle}
-            />{" "}
-            <Route path="/">
+            <Route exact path="/">
               <Main
                 onChangeTheme={changeTheme}
                 handleSearchedNewsDisplay={handleSearchedNewsDisplay}
@@ -244,6 +265,19 @@ function App(props) {
                 handleDeleteSavedArticle={handleDeleteSavedArticle}
               />{" "}
             </Route>{" "}
+            <ProtectedRoute
+              path="/saved-news"
+              isLoggedIn={isLoggedIn}
+              onLoginClick={handleLoginClick}
+            >
+              <SavedNews
+                isLoggedIn={isLoggedIn}
+                onLoginClick={handleLoginClick}
+                onChangeTheme={changeTheme}
+                savedNewsList={savedNewsList}
+                handleDeleteSavedArticle={handleDeleteSavedArticle}
+              />
+            </ProtectedRoute>
             <Route path="*"> {<Redirect to="/" />} </Route>{" "}
           </Switch>{" "}
           <Footer />

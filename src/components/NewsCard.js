@@ -2,7 +2,7 @@ import React from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function NewsCard(props) {
-  const savedArticles = JSON.parse(localStorage.getItem("savedArticles"));
+  // const savedArticles = JSON.parse(localStorage.getItem("savedArticles"));
   const [showSavedTooltip, setShowSavedTooltip] = React.useState(false);
   const [showDeleteTooltip, setShowDeleteTooltip] = React.useState(false);
   const currentUser = React.useContext(CurrentUserContext);
@@ -12,15 +12,15 @@ function NewsCard(props) {
     React.useState(false);
 
   const [savedIconSavedStatus, setSavedIconSavedStatus] = React.useState(false);
-  const [cardId, setCardId] = React.useState(props.id);
+  const [cardId, setCardId] = React.useState(props.id || props._id);
 
-  React.useMemo(() => {
-    localStorage.setItem("savedArticles", JSON.stringify(savedArticles));
-  }, [savedArticles]);
+  // React.useMemo(() => {
+  //   localStorage.setItem("savedArticles", JSON.stringify(savedArticles));
+  // }, [savedArticles]);
 
   function saveArticle() {
     if (currentUser.email) {
-      if (savedIconSavedStatus) {
+      if (savedIconSavedStatus || cardId) {
         props.handleDeleteSavedArticle(cardId);
         setSavedIconSavedStatus(false);
       } else {
@@ -32,10 +32,8 @@ function NewsCard(props) {
           source: props.source,
           link: props.url,
           image: props.image,
-          id: "",
         };
         props.handleSaveArticle(card, handleCardIdChange);
-        console.log(card.id);
         setSavedIconSavedStatus(true);
       }
     } else {
@@ -50,6 +48,7 @@ function NewsCard(props) {
 
   function handleCardIdChange(cardId) {
     setCardId(cardId);
+    setSavedIconSavedStatus(true);
   }
 
   function handleShowSaveTooltip() {
@@ -90,9 +89,9 @@ function NewsCard(props) {
       >
         <i
           className={`card__icon card__icon-saved_status_new ${
-            !savedIconSavedStatus && savedIconActiveStatus
+            !(savedIconSavedStatus || cardId) && savedIconActiveStatus
               ? "card__icon-saved_status_active"
-              : savedIconSavedStatus
+              : savedIconSavedStatus || cardId
               ? "card__icon-saved_status_saved"
               : ""
           }`}

@@ -1,12 +1,13 @@
 import React from "react";
 import SavedNewsHeader from "./SavedNewsHeader";
 import NewsCard from "./NewsCard";
-import { withRouter } from "react-router-dom";
+import { withRouter, useHistory } from "react-router-dom";
 
 function SavedNews(props) {
+  let history = useHistory();
   React.useEffect(() => {
     props.onChangeTheme("dark");
-    props.history.push("/saved-news");
+    history.push("/saved-news");
   }, []);
   return (
     <section className="savednews">
@@ -23,7 +24,7 @@ function SavedNews(props) {
             props.savedNewsList.map((news, i) => {
               return (
                 <NewsCard
-                  key={i}
+                  key={news._id}
                   id={news._id}
                   publishedAt={news.publishedAt}
                   title={news.title}
@@ -42,4 +43,4 @@ function SavedNews(props) {
   );
 }
 
-export default withRouter(SavedNews);
+export default SavedNews;
