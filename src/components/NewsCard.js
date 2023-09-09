@@ -2,7 +2,7 @@ import React from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function NewsCard(props) {
-  const savedArticles = JSON.parse(localStorage.getItem("savedArticles"));
+  // const savedArticles = JSON.parse(localStorage.getItem("savedArticles"));
   const [showSavedTooltip, setShowSavedTooltip] = React.useState(false);
   const [showDeleteTooltip, setShowDeleteTooltip] = React.useState(false);
   const currentUser = React.useContext(CurrentUserContext);
@@ -12,25 +12,43 @@ function NewsCard(props) {
     React.useState(false);
 
   const [savedIconSavedStatus, setSavedIconSavedStatus] = React.useState(false);
+  const [cardId, setCardId] = React.useState(props.id || props._id);
 
-  React.useMemo(() => {
-    localStorage.setItem("savedArticles", JSON.stringify(savedArticles));
-  }, [savedArticles]);
+  // React.useMemo(() => {
+  //   localStorage.setItem("savedArticles", JSON.stringify(savedArticles));
+  // }, [savedArticles]);
 
   function saveArticle() {
-    let card = {
-      image: props.image,
-      publishedAt: props.publishedAt,
-      title: props.title,
-      description: props.description,
-      source: props.source,
-    };
-    props.handleSaveArticle(card);
-    setSavedIconSavedStatus(true);
+    if (currentUser.email) {
+      if (savedIconSavedStatus || cardId) {
+        props.handleDeleteSavedArticle(cardId || props.id);
+        setSavedIconSavedStatus(false);
+      } else {
+        let card = {
+          keyword: props.keyword,
+          title: props.title,
+          text: props.description,
+          date: props.publishedAt,
+          source: props.source,
+          link: props.url,
+          image: props.image,
+        };
+        props.handleSaveArticle(card, handleCardIdChange);
+        setSavedIconSavedStatus(true);
+      }
+    } else {
+      //show signin popup
+      props.onLoginClick();
+    }
   }
 
   function deleteSavedArticle() {
-    props.handleDeleteSavedArticle(props.title);
+    props.handleDeleteSavedArticle(cardId, setCardId);
+  }
+
+  function handleCardIdChange(cardId) {
+    setCardId(cardId);
+    setSavedIconSavedStatus(true);
   }
 
   function handleShowSaveTooltip() {
@@ -71,9 +89,9 @@ function NewsCard(props) {
       >
         <i
           className={`card__icon card__icon-saved_status_new ${
-            !savedIconSavedStatus && savedIconActiveStatus
+            !(savedIconSavedStatus || cardId) && savedIconActiveStatus
               ? "card__icon-saved_status_active"
-              : savedIconSavedStatus
+              : savedIconSavedStatus || cardId
               ? "card__icon-saved_status_saved"
               : ""
           }`}
@@ -111,7 +129,9 @@ function NewsCard(props) {
       >
         Remove from saved
       </p>
-      <p className="card__tag card__tag_hidden">Nature</p>
+      <p className={`card__tag ${props.isSavedNews ? "" : "card__tag_hidden"}`}>
+        {props.keyword}
+      </p>
       <img
         className="card__image"
         src={props.image}
@@ -129,6 +149,7 @@ function NewsCard(props) {
         <h3 className="card__title"> {props.title}</h3>
         <p className="card__paragraph">{props.description}</p>
         <span className="card__span">{props.source} </span>
+        <span className="card__span_hidden">{props.url} </span>
       </div>
     </div>
   );

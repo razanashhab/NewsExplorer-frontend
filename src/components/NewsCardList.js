@@ -22,19 +22,25 @@ function NewsCardList(props) {
     >
       <h2 className="cardlist__title"> Search Result </h2>{" "}
       <div className="cardlist__container">
+        {" "}
         {props.articles.slice(0, count) &&
           props.articles
             .slice(0, count)
             .map((article, i) => (
               <NewsCard
-                key={i}
+                key={`${article._id ? article._id : article.publishedAt}`}
+                id={article._id}
                 publishedAt={article.publishedAt}
                 title={article.title}
                 description={article.description}
                 source={article.source.name}
                 image={article.urlToImage}
+                url={article.url}
+                keyword={props.keyword}
                 isSavedNews={false}
                 handleSaveArticle={props.handleSaveArticle}
+                onLoginClick={props.onLoginClick}
+                handleDeleteSavedArticle={props.handleDeleteSavedArticle}
               />
             ))}{" "}
       </div>{" "}

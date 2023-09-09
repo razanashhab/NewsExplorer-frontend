@@ -1,5 +1,4 @@
 import React from "react";
-import { FormValidator } from "./../utils/FormValidator";
 
 function ModalWithForm({
   isOpen,
@@ -12,24 +11,8 @@ function ModalWithForm({
   children,
   onRedirect,
   type,
+  isValid,
 }) {
-  const enableValidation = (config) => {
-    const formElement = document.querySelector(config.formSelector);
-    const validator = new FormValidator(formElement, config);
-    validator.enableValidation();
-  };
-
-  React.useEffect(() => {
-    enableValidation({
-      formSelector: `#${name}`,
-      inputSelector: ".form__input",
-      submitButtonSelector: ".form__submit",
-      inactiveButtonClass: "button_inactive",
-      inputErrorClass: "form__input_type_error",
-      errorClass: "form__input-error_active",
-    });
-  }, [isOpen, name]);
-
   React.useEffect(() => {
     const onMouseDown = (e) => {
       if (e.target === e.currentTarget) {
@@ -62,7 +45,11 @@ function ModalWithForm({
           {" "}
           {children}{" "}
           <fieldset className="form__fieldset form__fieldset_position">
-            <button type="submit" className="form__submit">
+            <button
+              type="submit"
+              className={`form__submit ${!isValid ? "button_inactive" : ""}`}
+              disabled={!isValid}
+            >
               {" "}
               {buttonText}{" "}
             </button>{" "}

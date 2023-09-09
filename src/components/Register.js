@@ -1,32 +1,23 @@
 import React from "react";
 import ModalWithForm from "./ModalWithForm";
 import { withRouter } from "react-router-dom";
+import { useFormAndValidation } from "./../hooks/useFormAndValidation";
 
 function Register(props) {
-  const [email, setEmail] = React.useState(" ");
-  const [password, setPassword] = React.useState(" ");
-  const [username, setUsername] = React.useState(" ");
+  const { values, handleChange, errors, isValid, setValues, resetForm } =
+    useFormAndValidation();
+
   React.useEffect(() => {
-    setEmail("");
-    setPassword("");
-    setUsername("");
-  }, [props.isOpen]);
-
-  function handleEmailChange(evt) {
-    setEmail(evt.target.value);
-  }
-
-  function handlePasswordChange(evt) {
-    setPassword(evt.target.value);
-  }
-
-  function handleUsernameChange(evt) {
-    setUsername(evt.target.value);
-  }
+    resetForm();
+  }, [props.isOpen, resetForm]);
 
   function handleRegister(e) {
     e.preventDefault();
-    props.handleRegister({ email, username, password });
+    props.handleRegister({
+      email: values.emailRg,
+      username: values.username,
+      password: values.passwordRg,
+    });
   }
 
   function redirectToSignin() {
@@ -45,40 +36,49 @@ function Register(props) {
       onSubmit={handleRegister}
       onRedirect={redirectToSignin}
       type="register"
+      isValid={isValid}
     >
       <fieldset className="form__fieldset">
-        <label className="form__label" htmlFor="email">
+        <label className="form__label" htmlFor="emailRg">
           {" "}
           Email{" "}
         </label>{" "}
         <input
           type="email"
           className="form__input"
-          id="email"
-          name="email"
+          id="emailRg"
+          name="emailRg"
           placeholder="Enter email"
           required
           minLength="1"
           maxLength="30"
-          onChange={handleEmailChange}
-          value={email}
+          onChange={handleChange}
+          value={values.emailRg || ""}
         />{" "}
-        <span className="email-input-error form__input-error"> </span>{" "}
-        <label className="form__label" htmlFor="password">
+        <span
+          className={`emailRg-input-error form__input-error ${isValid.emailRg}`}
+        >
+          {errors.emailRg}
+        </span>{" "}
+        <label className="form__label" htmlFor="passwordRg">
           {" "}
           Password{" "}
         </label>{" "}
         <input
           type="password"
           className="form__input"
-          id="password"
-          name="password"
+          id="passwordRg"
+          name="passwordRg"
           placeholder="Enter password"
           required
-          onChange={handlePasswordChange}
-          value={password}
+          onChange={handleChange}
+          value={values.passwordRg || ""}
         />{" "}
-        <span className="password-input-error form__input-error"> </span>{" "}
+        <span
+          className={`passwordRg-input-error form__input-error ${isValid.passwordRg}`}
+        >
+          {errors.passwordRg}
+        </span>{" "}
         <label className="form__label" htmlFor="username1">
           {" "}
           username{" "}
@@ -90,10 +90,15 @@ function Register(props) {
           name="username"
           placeholder="Enter username"
           required
-          onChange={handleUsernameChange}
-          value={username}
+          onChange={handleChange}
+          value={values.username || ""}
         />{" "}
-        <span className="username-input-error form__input-error"> </span>{" "}
+        <span
+          className={`username-input-error form__input-error ${isValid.username}`}
+        >
+          {" "}
+          {errors.username}
+        </span>{" "}
       </fieldset>{" "}
     </ModalWithForm>
   );
