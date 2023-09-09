@@ -37,7 +37,7 @@ function App(props) {
 
   React.useEffect(() => {
     history.listen((location) => {
-      console.log(`You changed the page to: ${location.pathname}`);
+      //   console.log(`You changed the page to: ${location.pathname}`);
     });
     handleTokenCheck();
   }, [history]);
@@ -186,23 +186,25 @@ function App(props) {
       )
       .then((newArticle) => {
         setSavedNewsList([newArticle.data, ...savedNewsList]);
-        setArticles((state) =>
-          state.map((currentCard) => {
-            if (currentCard.title === newArticle.data.title) {
-              return {
-                _id: newArticle.data._id,
-                publishedAt: newArticle.data.date,
-                title: newArticle.data.title,
-                description: newArticle.data.text,
-                source: { name: newArticle.data.source },
-                urlToImage: newArticle.data.image,
-                url: newArticle.data.link,
-                keyword: keyword,
-              };
-            }
-            return currentCard;
-          })
-        );
+
+        const newArticles = articles.map((currentCard) => {
+          if (currentCard.title === newArticle.data.title) {
+            return {
+              _id: newArticle.data._id,
+              publishedAt: newArticle.data.date,
+              title: newArticle.data.title,
+              description: newArticle.data.text,
+              source: { name: newArticle.data.source },
+              urlToImage: newArticle.data.image,
+              url: newArticle.data.link,
+              keyword: keyword,
+            };
+          }
+          return currentCard;
+        });
+        setArticles(newArticles);
+        localStorage.removeItem("searchedNews");
+        localStorage.setItem("searchedNews", JSON.stringify(newArticles));
       })
       .catch((err) => {
         console.log(`Error: ${err}`);
@@ -222,7 +224,24 @@ function App(props) {
 
         setSavedNewsList(newSavedNewsList);
 
-        handleSearchedNewsDisplay();
+        const newArticles = articles.map((currentCard) => {
+          if (currentCard._id === id) {
+            console.log("found");
+            return {
+              publishedAt: currentCard.publishedAt,
+              title: currentCard.title,
+              description: currentCard.description,
+              source: currentCard.source,
+              urlToImage: currentCard.urlToImage,
+              url: currentCard.url,
+              keyword: keyword,
+            };
+          }
+          return currentCard;
+        });
+        setArticles(newArticles);
+        localStorage.removeItem("searchedNews");
+        localStorage.setItem("searchedNews", JSON.stringify(newArticles));
       })
       .catch((err) => {
         console.log(`Error: ${err}`);
@@ -276,8 +295,8 @@ function App(props) {
                 onChangeTheme={changeTheme}
                 savedNewsList={savedNewsList}
                 handleDeleteSavedArticle={handleDeleteSavedArticle}
-              />
-            </ProtectedRoute>
+              />{" "}
+            </ProtectedRoute>{" "}
             <Route path="*"> {<Redirect to="/" />} </Route>{" "}
           </Switch>{" "}
           <Footer />

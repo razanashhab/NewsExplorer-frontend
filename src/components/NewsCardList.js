@@ -28,8 +28,8 @@ function NewsCardList(props) {
             .slice(0, count)
             .map((article, i) => (
               <NewsCard
-                key={i}
-                _id={article._id}
+                key={`${article._id ? article._id : article.publishedAt}`}
+                id={article._id}
                 publishedAt={article.publishedAt}
                 title={article.title}
                 description={article.description}

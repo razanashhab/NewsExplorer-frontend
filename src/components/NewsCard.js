@@ -21,7 +21,7 @@ function NewsCard(props) {
   function saveArticle() {
     if (currentUser.email) {
       if (savedIconSavedStatus || cardId) {
-        props.handleDeleteSavedArticle(cardId);
+        props.handleDeleteSavedArticle(cardId || props.id);
         setSavedIconSavedStatus(false);
       } else {
         let card = {
